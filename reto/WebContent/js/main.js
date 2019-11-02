@@ -10,11 +10,16 @@ var app = new Vue({
         },
         axs: null,
         current: null,
-        currentOperation: "Crear"
+        currentOperation: "Crear",
+        map: null,
+        markersArray: [],
+        latitude: null,
+        longitude: null
     },
     mounted () {
-        this.axs  = axios.create({
-            baseURL: 'http://localhost:8282/reto'
+    	this.initMap();
+    	this.axs  = axios.create({
+            baseURL: 'http://localhost:8080/OpenSource-master_reto'
         });
         this.axs.defaults.headers.post['Content-Type'] = 'application/x-www-formbody-urlencoded';
         this.fetch();
@@ -35,6 +40,9 @@ var app = new Vue({
             formdata.append('Nombre', this.formbody.nombre);
             formdata.append('Cedula', this.formbody.cedula);
             formdata.append('FechaNacimiento', this.formbody.fechaNacimiento);
+            formdata.append('Latitude', this.latitude);
+            formdata.append('Longitude', this.longitude);
+            
             if (this.current != null) {
                 formdata.append('id', this.current.Id);
                 url = url + '/' + this.current.Id;
@@ -83,6 +91,38 @@ var app = new Vue({
                     }
                 }
             ) 
+        },
+        initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 18.473, lng: -69.913},
+            zoom: 14
+          });
+          
+          let that = this;
+          
+          map.addListener('click', function(e) {
+
+	       	   if (that.markersArray.length == 0) {
+	       		that.addMarker(e.latLng);
+	       	   }
+            });
+        },
+        addMarker(latLng) {
+  	   
+          let marker = new google.maps.Marker({
+              map: map,
+              position: latLng,
+              draggable: true
+          });
+                    
+          let that = this;
+          marker.addListener('dragend', function() {
+              let pos = marker.getPosition();
+              that.latitude = pos.lat();
+              that.longitude = pos.lng();
+              map.setCenter(pos);
+            });
+          this.markersArray.push(marker);
         }
     }
 });

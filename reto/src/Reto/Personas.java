@@ -10,5 +10,7 @@ public class Personas extends BaseEntity {
 	public String Cedula = "";
 	public String Nombre = "";
     public String FechaNacimiento = "";
+    public String Latitude = "";
+    public String Longitude = "";
 	
 }

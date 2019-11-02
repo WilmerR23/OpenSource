@@ -23,7 +23,7 @@ public class ExcelHelper {
 	public String save(BaseEntity entity) throws Exception {
 		 try {
 			 
-			 	URL url = new URL("http://localhost:8282/CedulaWS/cedulaServlet?wsdl");
+			 	URL url = new URL("http://localhost:8082/CedulaWS/cedulaServlet?wsdl");
 				QName qname = new QName("http://ws/", "CedulaValidaImpService");
 
 			    Service service = Service.create(url, qname);

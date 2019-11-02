@@ -7,32 +7,46 @@
 <body style="background: #e8e9e1;">
     <link type="text/css" rel="stylesheet" href="style/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="style/bootstrap-vue.css" />
+    <style>
+  #map {
+    height: 100%;
+    width: 100%;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+</style>
     <script src="js/vue.js"></script>
     <script src="js/axios.js"></script>
     <script src="js/bootstrap-vue.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnjbwFgxX-LOfZ-W0a9iXj06VuOFj_PQI&callback=initMap"></script>
     <div id="app">
         <div class="container">
             <div class="row">
                 <h3>Reto exoneración</h3>
             </div>
+            
             <div class="row">
-                <div class="col-md-12">
+            
+                <div class="col-md-6">
                     <b-form @submit="save" @reset="resetForm">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <b-form-group id="nombreGrp" label="Nombre:" label-for="nombreipt">
                                     <b-form-input id="nombreipt" type="text" v-model="formbody.nombre" required
                                         placeholder="Nombre persona">
                                     </b-form-input>
                                 </b-form-group>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <b-form-group id="cedulaGrp" label="Cedula" label-for="cedulaipt">
                                     <b-form-input id="cedulaipt" placeholder="Cedula" type="text" v-model="formbody.cedula" required>
                                     </b-form-input>
                                 </b-form-group>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <b-form-group id="fechaNacimientoGrp" placeholder="Fecha de Nacimiento" label="Fecha Nacimiento" label-for="fechaNacimientoipt">
                                     <b-form-input id="fechaNacimientoipt" type="date" v-model="formbody.fechaNacimiento" required>
                                     </b-form-input>
@@ -51,6 +65,9 @@
                         </div>
                     </b-form>
                 </div>
+                <div class="col-md-6">
+                        <div id="map"></div>
+            </div>
 
             </div>
 
